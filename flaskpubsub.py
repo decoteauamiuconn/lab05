@@ -10,6 +10,8 @@ a. The notifications can be print statements on the backend
 b. The backend should be run in one terminal and another terminal should be used
 for testing with curl"""
 
+#compare with last lab; also used pub/sub
+
 from flask import Flask, request, jsonify
 
 
@@ -40,6 +42,15 @@ def addSubscriber():
   subscribers[name] = URI
   print(f"You entered: Name={name}, Address={URI}")
   return jsonify({'message': f'You sent name: {name} and address: {URI}'})
+
+#not example code; mine
+  @app.route('/remove-subscriber', methods=['POST'])
+def removeSubscriber():
+  data = request.json
+  name = data.get('name')
+  subscribers.remove("name") 
+  print(f"Removed the subscriber {name}.")
+  return jsonify({'message': f'You removed subscriber: {name}'})
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000, debug=True)
