@@ -7,11 +7,11 @@ class MyServerTestCase(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.app.testing = True
-
+    
     def test_hello(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data.decode(), ' you called \n')
+        self.assertEqual(json.loads(response.data.decode()), "hello at the root")
 
     def test_add_subscriber(self):
         response = self.app.post('/add-subscriber', 
